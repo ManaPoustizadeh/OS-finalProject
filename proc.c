@@ -49,7 +49,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-
+					//mana some things are added here
   release(&ptable.lock);
 
   // Allocate kernel stack.
