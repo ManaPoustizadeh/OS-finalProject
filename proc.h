@@ -63,6 +63,9 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  unsigned long long ctime;    //creation time
+  unsigned long long etime;    //end time
+  unsigned long long rtime;    //total running time
 };
 
 // Process memory is laid out contiguously, low addresses first:

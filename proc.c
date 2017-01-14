@@ -25,6 +25,12 @@ pinit(void)
 {
   initlock(&ptable.lock, "ptable");
 }
+static __inline__ unsigned long long cycles(void)	//changed
+{
+ unsigned long long int x;
+ __asm__ volatile (".byte 0x0f, 0x31":"=A" (x));
+ return x;
+}
 
 //PAGEBREAK: 32
 // Look in the process table for an UNUSED proc.
@@ -34,9 +40,9 @@ pinit(void)
 static struct proc*
 allocproc(void)
 {
+
   struct proc *p;
   char *sp;
-
   acquire(&ptable.lock);
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
@@ -49,6 +55,8 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  p->ctime = cycles();	//changed
+  p->rtime = 0;
 					//mana some things are added here
   release(&ptable.lock);
 
@@ -188,7 +196,6 @@ exit(void)
 {
   struct proc *p;
   int fd;
-
   if(proc == initproc)
     panic("init exiting");
 
@@ -218,6 +225,8 @@ exit(void)
         wakeup1(initproc);
     }
   }
+
+  proc->etime = cycles();	//changed
 
   // Jump into the scheduler, never to return.
   proc->state = ZOMBIE;

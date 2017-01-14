@@ -51,6 +51,9 @@ trap(struct trapframe *tf)
     if(cpunum() == 0){
       acquire(&tickslock);
       ticks++;
+      if(proc != 0){	//changed
+	proc->rtime++;
+      }
       wakeup(&ticks);
       release(&tickslock);
     }
