@@ -5,7 +5,7 @@
 
 int main(int argc , char** argv){
 	
-	printf(1,"asghar");
+/*	printf(1,"asghar");
 	char name[] = "mana";
 	printf(1,"name = %p\n", name);
 	printf("salam %s");
@@ -19,7 +19,7 @@ int main(int argc , char** argv){
 	else{
 		printf(1, "I am the child. My pid is %d, my parent id is %d\n", getpid(), getppid());
 	}
-
+*/
 	exit();
 
 }
