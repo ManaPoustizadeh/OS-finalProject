@@ -10,17 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2e47faf-c7dc-450b-8be3-4bf987ac0a86" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Makefile" afterPath="$PROJECT_DIR$/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/defs.h" afterPath="$PROJECT_DIR$/defs.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/param.h" afterPath="$PROJECT_DIR$/param.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proc.c" afterPath="$PROJECT_DIR$/proc.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proc.h" afterPath="$PROJECT_DIR$/proc.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/syscall.c" afterPath="$PROJECT_DIR$/syscall.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/syscall.h" afterPath="$PROJECT_DIR$/syscall.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sysproc.c" afterPath="$PROJECT_DIR$/sysproc.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trap.c" afterPath="$PROJECT_DIR$/trap.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user.h" afterPath="$PROJECT_DIR$/user.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/usys.S" afterPath="$PROJECT_DIR$/usys.S" />
     </list>
     <ignored path="xv6-public.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,38 +63,48 @@
               <caret line="114" column="29" lean-forward="false" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="29" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <marker date="1484478176603" expanded="true" signature="169:189" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="210:251" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="272:292" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="313:388" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="411:434" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="458:488" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="509:644" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="666:945" ph="{...}" />
+                <marker date="1484478176603" expanded="true" signature="1039:1139" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="proc.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="proc.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proc.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="279" column="22" lean-forward="false" selection-start-line="279" selection-start-column="22" selection-end-line="279" selection-end-column="22" />
+            <state relative-caret-position="502">
+              <caret line="365" column="0" lean-forward="true" selection-start-line="365" selection-start-column="0" selection-end-line="365" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#7566#8072#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="defs.h" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/defs.h">
+      <file leaf-file-name="trap.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trap.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="116" column="49" lean-forward="false" selection-start-line="116" selection-start-column="49" selection-end-line="116" selection-end-column="49" />
+            <state relative-caret-position="396">
+              <caret line="63" column="6" lean-forward="false" selection-start-line="63" selection-start-column="6" selection-end-line="63" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="proc.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/proc.h">
+      <file leaf-file-name="param.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/param.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1206">
-              <caret line="67" column="27" lean-forward="false" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+            <state relative-caret-position="234">
+              <caret line="13" column="52" lean-forward="false" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -128,9 +131,10 @@
       <find>kill</find>
       <find>inlin</find>
       <find>chang</find>
-      <find>wait</find>
       <find>sle</find>
+      <find>wait</find>
       <find>wai</find>
+      <find>ticks++</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,13 +152,14 @@
         <option value="$PROJECT_DIR$/usys.S" />
         <option value="$PROJECT_DIR$/syscall.h" />
         <option value="$PROJECT_DIR$/Makefile" />
-        <option value="$PROJECT_DIR$/trap.c" />
         <option value="$PROJECT_DIR$/proc.h" />
         <option value="$PROJECT_DIR$/user.h" />
         <option value="$PROJECT_DIR$/syscall.c" />
         <option value="$PROJECT_DIR$/sysproc.c" />
-        <option value="$PROJECT_DIR$/proc.c" />
         <option value="$PROJECT_DIR$/defs.h" />
+        <option value="$PROJECT_DIR$/param.h" />
+        <option value="$PROJECT_DIR$/trap.c" />
+        <option value="$PROJECT_DIR$/proc.c" />
       </list>
     </option>
   </component>
@@ -207,7 +212,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="def&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/defs.h&#10;sysca&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/syscall.c&#10;pro&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/proc.h&#10;proch&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/proc.h&#10;proc&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/proc.c&#10;tra&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/trap.c&#10;mak&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/Makefile&#10;sysp&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/sysproc.c&#10;SYS&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/syscall.h&#10;usy&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/usys.S&#10;user&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/user.h" />
+    <property name="SearchEverywhereHistoryKey" value="proc&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/proc.c&#10;para&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/param.h&#10;trap&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/trap.c&#10;def&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/defs.h&#10;sysca&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/syscall.c&#10;pro&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/proc.h&#10;proch&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/proc.h&#10;tra&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/trap.c&#10;mak&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/Makefile&#10;sysp&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/sysproc.c&#10;SYS&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/syscall.h&#10;usy&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/usys.S&#10;user&#9;FILE&#9;file:///home/mana/IdeaProjects/xv6/user.h" />
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
@@ -385,12 +390,12 @@
       <option name="presentableId" value="Default" />
       <updated>1481890567586</updated>
       <workItem from="1481890569050" duration="505000" />
-      <workItem from="1484468450751" duration="9335000" />
+      <workItem from="1484468450751" duration="11366000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9840000" />
+    <option name="totallyTimeSpent" value="11871000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -464,16 +469,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trap.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/syscall.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -524,25 +519,51 @@
           <caret line="114" column="29" lean-forward="false" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="29" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proc.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="279" column="22" lean-forward="false" selection-start-line="279" selection-start-column="22" selection-end-line="279" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1484478176603" expanded="true" signature="169:189" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="210:251" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="272:292" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="313:388" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="411:434" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="458:488" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="509:644" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="666:945" ph="{...}" />
+            <marker date="1484478176603" expanded="true" signature="1039:1139" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/defs.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="116" column="49" lean-forward="false" selection-start-line="116" selection-start-column="49" selection-end-line="116" selection-end-column="49" />
+        <state relative-caret-position="307">
+          <caret line="121" column="35" lean-forward="true" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/param.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="52" lean-forward="false" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trap.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="63" column="6" lean-forward="false" selection-start-line="63" selection-start-column="6" selection-end-line="63" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proc.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="365" column="0" lean-forward="true" selection-start-line="365" selection-start-column="0" selection-end-line="365" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#7566#8072#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -13,6 +13,7 @@ struct gatedesc idt[256];
 extern uint vectors[];  // in vectors.S: array of 256 entry pointers
 struct spinlock tickslock;
 uint ticks;
+int counter = QUANTA - 1;  //changed
 
 void
 tvinit(void)
@@ -50,10 +51,16 @@ trap(struct trapframe *tf)
   case T_IRQ0 + IRQ_TIMER:
     if(cpunum() == 0){
       acquire(&tickslock);
-      ticks++;
+
+      counter++;
+      if(counter == QUANTA){    //changed
+        ticks++;
+        counter = 0;
+      }
       if(proc != 0){	//changed
 	    proc->rtime++;
       }
+
       wakeup(&ticks);
       release(&tickslock);
     }
