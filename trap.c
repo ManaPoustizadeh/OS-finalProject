@@ -52,7 +52,7 @@ trap(struct trapframe *tf)
       acquire(&tickslock);
       ticks++;
       if(proc != 0){	//changed
-	proc->rtime++;
+	    proc->rtime++;
       }
       wakeup(&ticks);
       release(&tickslock);

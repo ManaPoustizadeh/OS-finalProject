@@ -30,7 +30,6 @@ int
 sys_kill(void)
 {
   int pid;
-
   if(argint(0, &pid) < 0)
     return -1;
   return kill(pid);
@@ -94,4 +93,24 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+int
+sys_getPerformanceData(void){
+    int *wtime, *rtime;
+//    argint(0, &wtime);
+//    argint(1, &rtime);
+//    if(argint(0, &wtime) < -1 || argint(0, &rtime) < -1){
+//        return -1;
+//    }
+//    wtime = proc->etime - proc->ctime - proc->etime;
+//    rtime = proc->rtime;
+//
+    if(argptr(0, (char**)&wtime, sizeof(int)) < 0)
+        return -1;
+
+    if(argptr(1, (char**)&rtime, sizeof(int)) < 0)
+        return -1;
+
+    return getPerformanceData(wtime, rtime);
 }

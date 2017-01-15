@@ -25,9 +25,9 @@ pinit(void)
 {
   initlock(&ptable.lock, "ptable");
 }
-static __inline__ unsigned long long cycles(void)	//changed
+static __inline__ int cycles(void)	//changed
 {
- unsigned long long int x;
+ int x;
  __asm__ volatile (".byte 0x0f, 0x31":"=A" (x));
  return x;
 }
@@ -275,6 +275,52 @@ wait(void)
     // Wait for children to exit.  (See wakeup1 call in proc_exit.)
     sleep(proc, &ptable.lock);  //DOC: wait-sleep
   }
+}
+
+int getPerformanceData (int *wtime, int *rtime){
+    struct proc *p;
+    int havekids, pid;
+
+    acquire(&ptable.lock);
+    for(;;){
+        // Scan through table looking for exited children.
+        havekids = 0;
+        for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+            if(p->parent != proc)
+                continue;
+            havekids = 1;
+
+
+            if(p->state == ZOMBIE){
+                // Found one.
+                *wtime = p->etime - proc->ctime - proc->etime;   //changed
+                *rtime = p->rtime;
+
+                pid = p->pid;
+                kfree(p->kstack);
+                p->kstack = 0;
+                freevm(p->pgdir);
+                p->pid = 0;
+                p->parent = 0;
+                p->name[0] = 0;
+                p->killed = 0;
+                p->state = UNUSED;
+                release(&ptable.lock);
+                return pid;
+            }
+        }
+
+
+
+        // No point waiting if we don't have any children.
+        if(!havekids || proc->killed){
+            release(&ptable.lock);
+            return -1;
+        }
+
+        // Wait for children to exit.  (See wakeup1 call in proc_exit.)
+        sleep(proc, &ptable.lock);  //DOC: wait-sleep
+    }
 }
 
 //PAGEBREAK: 42
