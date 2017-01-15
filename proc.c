@@ -362,8 +362,43 @@ scheduler(void)
       proc = 0;
       }
     #else
-    #ifdef FRR
+    #ifdef GRT
+      int gfs1 = 0;
+      struct proc* p1;
+      for(p = ptable.proc; p < &ptable.proc[nproc]; p++){
+        if( p->state == RUNNABLE){
+            p1=p;
 
+            break;
+        }
+      }
+      if(ticks != p1->ctime){
+          gfs1 = (p1->rtime)/(ticks - p1->ctime);
+            for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+                if(p->state != RUNNABLE)
+                    if(ticks == p->ctime){
+                        p1  = p;
+                        break;
+                    }
+                    else if( (p->rtime)/(ticks - p->ctime) < gfs1){
+                        gfs1 = (p->rtime)/(ticks - p->ctime);
+                        p1=p;
+                    }
+             }
+            proc = p1;
+
+      }else{
+        proc = p1;
+      }
+      switchuvm(p1);
+      p1->state = RUNNING;
+      swtch(&cpu->scheduler, p1->context);
+      switchkvm();
+
+      // Process is done running for now.
+      // It should have changed its p->state before coming back.
+      proc = 0;
+}
     #endif
     #endif
 
