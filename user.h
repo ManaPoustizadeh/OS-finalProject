@@ -23,8 +23,8 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-int getppid(void);
-int getPerformanceData(int*, int*);
+int wait2(int *wtime, int *rtime);
+int nice(void);
 
 // ulib.c
 int stat(char*, struct stat*);

@@ -26,10 +26,37 @@ sys_wait(void)
   return wait();
 }
 
+
+int 
+sys_wait2(void)
+{
+  int *wtime;
+  int *rtime;
+  
+  if(argptr(0, (char**)&wtime, sizeof(int)) < 0)
+    return -1;
+
+  if(argptr(1, (char**)&rtime, sizeof(int)) < 0)
+    return -1;
+
+  return wait2(wtime, rtime);
+}
+
+
+
+int
+sys_nice(void)
+{
+
+return nice();
+
+}
+
 int
 sys_kill(void)
 {
   int pid;
+
   if(argint(0, &pid) < 0)
     return -1;
   return kill(pid);
@@ -44,8 +71,11 @@ sys_getpid(void)
 int
 sys_getppid(void)
 {
-	return proc->parent->pid;
+if(proc->parent ==0)
+return 0;
+return proc->parent->pid;
 }
+
 
 int
 sys_sbrk(void)
@@ -95,22 +125,4 @@ sys_uptime(void)
   return xticks;
 }
 
-int
-sys_getPerformanceData(void){
-    int *wtime, *rtime;
-//    argint(0, &wtime);
-//    argint(1, &rtime);
-//    if(argint(0, &wtime) < -1 || argint(0, &rtime) < -1){
-//        return -1;
-//    }
-//    wtime = proc->etime - proc->ctime - proc->etime;
-//    rtime = proc->rtime;
-//
-    if(argptr(0, (char**)&wtime, sizeof(int)) < 0)
-        return -1;
 
-    if(argptr(1, (char**)&rtime, sizeof(int)) < 0)
-        return -1;
-
-    return getPerformanceData(wtime, rtime);
-}
