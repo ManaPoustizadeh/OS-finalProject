@@ -357,9 +357,9 @@ scheduler(void)
 
     // Loop over process table looking for process to run.
 	
-/*
 
-// #ifdef RR
+
+#ifndef RR
 
     acquire(&ptable.lock);
     struct proc *p;
@@ -383,7 +383,8 @@ scheduler(void)
     release(&ptable.lock);
 
 
-// #endif
+#else
+#ifndef FRR
 
 
 //FRR
@@ -419,11 +420,12 @@ for (i = 0; i < queueCounter; i++){
 }
 
 
-*/
 
 
 
-/*
+
+#else
+#ifndef GRT
 
 //GRT
 
@@ -469,10 +471,11 @@ struct proc *p;
   release(&ptable.lock);
 
 
-*/
 
 
 
+#else
+#ifndef 3Q
 //3Q
 
 
@@ -610,6 +613,11 @@ low--;
      release(&ptable.lock);
 
 
+#endif
+#endif
+#endif
+#endif
+
  }
 
 
@@ -637,6 +645,7 @@ else if(proc->priority==1)
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if((p->pid == proc->pid) || (p->parent->pid == proc->pid)){
       p->priority = proc->priority;
+  release(&ptable.lock);
       return 0;
     }
   }
@@ -674,6 +683,20 @@ sched(void)
   if(readeflags()&FL_IF)
     panic("sched interruptible");
   intena = cpu->intena;
+
+
+#ifndef FRR
+  struct proc *p;
+  for(int i=0;i<queueCounter;i++)
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->state != RUNNABLE)
+            continue;
+    if(p->index == i)
+      cprintf("<%d>,",p->pid);
+  }
+  cprintf("\n");  
+#endif
+
   swtch(&proc->context, cpu->scheduler);
   cpu->intena = intena;
 }

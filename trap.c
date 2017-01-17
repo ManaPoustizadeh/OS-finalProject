@@ -62,10 +62,19 @@ int counter = QUANTA - 1;
 }
  if(proc) 
       {
-        if(proc->state == RUNNING)
+
+
+        if(proc->state == RUNNING){
           proc->rtime++;
+
+          if( ticks != proc->ctime)
+	      proc->gfs=(proc->rtime)/(ticks - proc->ctime);
+          else
+              proc->gfs=0;
+}
       }
     }
+
     lapiceoi();
     break;
   case T_IRQ0 + IRQ_IDE:

@@ -3,7 +3,7 @@
 #include "user.h"
 
 #define N  10
-#define P 300
+#define P 1000
 
 
 void
