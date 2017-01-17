@@ -80,6 +80,7 @@ found:
   p->rtime = 0;             // run time
 p->priority=2;   //high=2
 p->index=0;
+p->gfs=0;
   return p;
 }
 
@@ -355,11 +356,12 @@ scheduler(void)
     sti();
 
     // Loop over process table looking for process to run.
-   // acquire(&ptable.lock);
 	
 /*
+
 // #ifdef RR
 
+    acquire(&ptable.lock);
     struct proc *p;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
@@ -378,10 +380,10 @@ scheduler(void)
       // It should have changed its p->state before coming back.
       proc = 0;
     }
+    release(&ptable.lock);
 
 
 // #endif
-*/
 
 
 //FRR
@@ -417,57 +419,201 @@ for (i = 0; i < queueCounter; i++){
 }
 
 
-
+*/
 
 
 
 /*
-      int gfs1 = 0;
- struct proc *p;
-       struct proc* p1;
-       for(p = ptable.proc; p < &ptable.proc[nproc]; p++){
-         if( p->state == RUNNABLE){
-             p1=p;
-            
-             break;
-         }
-       }
-       if(ticks != p1->ctime){
-           gfs1 = (p1->rtime)/(ticks - p1->ctime);
-             for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-                 if(p->state == RUNNABLE)
-                     if(ticks == p->ctime){
-                         p1  = p;
-                         break;
-                     }
-                     else if( (p->rtime)/(ticks - p->ctime) < gfs1){
-                         gfs1 = (p->rtime)/(ticks - p->ctime);
-                         p1=p;
-                     }
-              }
-             proc = p1;
 
-       }else{
-         proc = p1;
-       } 
-       switchuvm(p1);
-       p1->state = RUNNING;
-       swtch(&cpu->scheduler, p1->context);
-       switchkvm();
+//GRT
 
-//       // Process is done running for now.
-//       // It should have changed its p->state before coming back.
-       proc = 0;
+
+int min=-1;
+struct proc *p;
+
+
+  
+      acquire(&ptable.lock);
+
+
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if(p->state != RUNNABLE)
+          continue;
+
+
+	if(min == -1){
+		min = p-> gfs;
+	}else{
+		if(min >= p->gfs){
+			min = p->gfs;
+		}
+	}
+
+      }
+	 
+	for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+	        if(p->state != RUNNABLE)
+	          continue;
+	  	if (p->gfs == min) {
+          		proc = p;
+          		switchuvm(p);
+          		p->state = RUNNING;
+          		swtch(&cpu->scheduler, proc->context);
+          		switchkvm();
+  
+        		}
+
+        	proc = 0;
+	}
+
+  release(&ptable.lock);
 
 
 */
 
 
 
+//3Q
 
-  //  release(&ptable.lock);
 
-  }
+int high=0, medium=0, low=0;   //counter
+struct proc *p;
+
+      acquire(&ptable.lock);
+
+for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if(p->state != RUNNABLE)
+          continue;
+
+
+if(p->priority==2)
+high++;
+
+if(p->priority==1)
+medium++;
+
+if(p->priority==0)
+low++;
+
+}
+
+
+for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if(p->state != RUNNABLE)
+          continue;
+
+
+if(high>0){    //GRT
+
+
+int min=-1;
+struct proc *p;
+
+
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if(p->state != RUNNABLE)
+          continue;
+
+
+	if(min == -1){
+		min = p-> gfs;
+	}else{
+		if(min >= p->gfs){
+			min = p->gfs;
+		}
+	}
+
+      }
+	 
+	for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+	        if(p->state != RUNNABLE)
+	          continue;
+	  	if (p->gfs == min) {
+          		proc = p;
+          		switchuvm(p);
+          		p->state = RUNNING;
+          		swtch(&cpu->scheduler, proc->context);
+          		switchkvm();
+  
+        		}
+
+        	proc = 0;
+                high--;
+	}
+
+
+
+}
+else if(medium>0){   //FRR
+
+int i;
+struct proc *p;
+
+for (i = 0; i < queueCounter; i++){
+  
+     // acquire(&ptable.lock);
+
+
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if(p->state != RUNNABLE)
+          continue;
+
+        if (p->index == i) {
+          proc = p;
+          switchuvm(p);
+          p->state = RUNNING;
+          swtch(&cpu->scheduler, proc->context);
+          switchkvm();
+  
+        }
+
+        proc = 0;
+medium--;
+      }
+
+ // release(&ptable.lock);
+
+
+}
+
+}
+else if(low>0){  //RR
+
+
+
+
+struct proc *p;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(p->state != RUNNABLE)
+        continue;
+
+      // Switch to chosen process.  It is the process's job
+      // to release ptable.lock and then reacquire it
+      // before jumping back to us.
+      proc = p;
+      switchuvm(p);
+      p->state = RUNNING;
+      swtch(&cpu->scheduler, p->context);
+      switchkvm();
+
+      // Process is done running for now.
+      // It should have changed its p->state before coming back.
+      proc = 0;
+low--;
+    }
+}
+
+
+}
+
+
+     release(&ptable.lock);
+
+
+ }
+
+
+
 }
 
 
