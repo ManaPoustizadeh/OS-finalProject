@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "stdbool.h"
 
 struct {
   struct spinlock lock;
@@ -15,6 +16,7 @@ struct {
 static struct proc *initproc;
 
 int nextpid = 1;
+int queueCounter=0;
 extern void forkret(void);
 extern void trapret(void);
 
@@ -36,7 +38,6 @@ allocproc(void)
 {
   struct proc *p;
   char *sp;
-
   acquire(&ptable.lock);
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
@@ -78,7 +79,7 @@ found:
   p->etime = 0;             // end time
   p->rtime = 0;             // run time
 p->priority=2;   //high=2
-
+p->index=0;
   return p;
 }
 
@@ -116,6 +117,8 @@ userinit(void)
   acquire(&ptable.lock);
 
   p->state = RUNNABLE;
+p->index=queueCounter;
+queueCounter++;
 
   release(&ptable.lock);
 }
@@ -180,6 +183,8 @@ fork(void)
   acquire(&ptable.lock);
 
   np->state = RUNNABLE;
+np->index=queueCounter;
+queueCounter++;
 
   release(&ptable.lock);
 
@@ -350,11 +355,12 @@ scheduler(void)
     sti();
 
     // Loop over process table looking for process to run.
-    acquire(&ptable.lock);
+   // acquire(&ptable.lock);
+	
+/*
+// #ifdef RR
 
-
-
-struct proc *p;
+    struct proc *p;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
@@ -374,10 +380,92 @@ struct proc *p;
     }
 
 
+// #endif
+*/
+
+
+//FRR
+
+
+int i;
+struct proc *p;
+
+for (i = 0; i < queueCounter; i++){
+  
+      acquire(&ptable.lock);
+
+
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if(p->state != RUNNABLE)
+          continue;
+
+        if (p->index == i) {
+          proc = p;
+          switchuvm(p);
+          p->state = RUNNING;
+          swtch(&cpu->scheduler, proc->context);
+          switchkvm();
+  
+        }
+
+        proc = 0;
+      }
+
+  release(&ptable.lock);
+
+
+}
 
 
 
-    release(&ptable.lock);
+
+
+
+/*
+      int gfs1 = 0;
+ struct proc *p;
+       struct proc* p1;
+       for(p = ptable.proc; p < &ptable.proc[nproc]; p++){
+         if( p->state == RUNNABLE){
+             p1=p;
+            
+             break;
+         }
+       }
+       if(ticks != p1->ctime){
+           gfs1 = (p1->rtime)/(ticks - p1->ctime);
+             for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+                 if(p->state == RUNNABLE)
+                     if(ticks == p->ctime){
+                         p1  = p;
+                         break;
+                     }
+                     else if( (p->rtime)/(ticks - p->ctime) < gfs1){
+                         gfs1 = (p->rtime)/(ticks - p->ctime);
+                         p1=p;
+                     }
+              }
+             proc = p1;
+
+       }else{
+         proc = p1;
+       } 
+       switchuvm(p1);
+       p1->state = RUNNING;
+       swtch(&cpu->scheduler, p1->context);
+       switchkvm();
+
+//       // Process is done running for now.
+//       // It should have changed its p->state before coming back.
+       proc = 0;
+
+
+*/
+
+
+
+
+  //  release(&ptable.lock);
 
   }
 }
@@ -450,6 +538,8 @@ yield(void)
 {
   acquire(&ptable.lock);  //DOC: yieldlock
   proc->state = RUNNABLE;
+proc->index=queueCounter;
+queueCounter++;
   sched();
   release(&ptable.lock);
 }
@@ -521,8 +611,11 @@ wakeup1(void *chan)
   struct proc *p;
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if(p->state == SLEEPING && p->chan == chan)
+    if(p->state == SLEEPING && p->chan == chan){
       p->state = RUNNABLE;
+p->index=queueCounter;
+queueCounter++;
+}
 }
 
 // Wake up all processes sleeping on chan.
@@ -547,8 +640,11 @@ kill(int pid)
     if(p->pid == pid){
       p->killed = 1;
       // Wake process from sleep if necessary.
-      if(p->state == SLEEPING)
+      if(p->state == SLEEPING){
         p->state = RUNNABLE;
+p->index=queueCounter;
+queueCounter++;
+}
       release(&ptable.lock);
       return 0;
     }
