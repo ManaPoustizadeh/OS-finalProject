@@ -181,6 +181,8 @@ UPROGS=\
 	_parent2\
 	_waittest\
 	_RRsanity\
+	_Gsanity\
+	_sanity\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
