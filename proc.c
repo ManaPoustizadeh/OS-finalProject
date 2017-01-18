@@ -19,6 +19,7 @@ int nextpid = 1;
 int queueCounter=0;
 extern void forkret(void);
 extern void trapret(void);
+int frrcheck=0;
 
 static void wakeup1(void *chan);
 
@@ -356,11 +357,11 @@ scheduler(void)
     sti();
 
     // Loop over process table looking for process to run.
-	
+/*	
 
+//RR
 
-#ifndef RR
-
+  //cprintf("RR");  
     acquire(&ptable.lock);
     struct proc *p;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
@@ -382,17 +383,17 @@ scheduler(void)
     }
     release(&ptable.lock);
 
+*/
 
-#else
-#ifndef FRR
-
+/*
 
 //FRR
 
 
 int i;
 struct proc *p;
-
+frrcheck=1;
+ // cprintf("FFFF");  
 for (i = 0; i < queueCounter; i++){
   
       acquire(&ptable.lock);
@@ -420,16 +421,15 @@ for (i = 0; i < queueCounter; i++){
 }
 
 
+*/
 
 
 
-
-#else
-#ifndef GRT
+/*
 
 //GRT
 
-
+  //cprintf("GRT");  
 int min=-1;
 struct proc *p;
 
@@ -472,13 +472,12 @@ struct proc *p;
 
 
 
+*/
 
 
-#else
-#ifndef 3Q
 //3Q
 
-
+  //cprintf("3Q");  
 int high=0, medium=0, low=0;   //counter
 struct proc *p;
 
@@ -613,10 +612,7 @@ low--;
      release(&ptable.lock);
 
 
-#endif
-#endif
-#endif
-#endif
+
 
  }
 
@@ -684,8 +680,8 @@ sched(void)
     panic("sched interruptible");
   intena = cpu->intena;
 
-
-#ifndef FRR
+if(frrcheck){
+  //cprintf("FRR   <sched>");  
   struct proc *p;
   for(int i=0;i<queueCounter;i++)
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
@@ -695,8 +691,8 @@ sched(void)
       cprintf("<%d>,",p->pid);
   }
   cprintf("\n");  
-#endif
 
+}
   swtch(&proc->context, cpu->scheduler);
   cpu->intena = intena;
 }
