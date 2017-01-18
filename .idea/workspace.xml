@@ -65,8 +65,8 @@
       <file leaf-file-name="proc.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proc.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="609" column="0" lean-forward="true" selection-start-line="609" selection-start-column="0" selection-end-line="609" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -172,6 +172,8 @@
       <find>sched</find>
       <find>releas</find>
       <find>getpid</find>
+      <find>rr</find>
+      <find>changed</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -466,12 +468,12 @@
       <workItem from="1484631565241" duration="17411000" />
       <workItem from="1484674540449" duration="619000" />
       <workItem from="1484680642429" duration="2600000" />
-      <workItem from="1484721994402" duration="1513000" />
+      <workItem from="1484721994402" duration="2708000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49169000" />
+    <option name="totallyTimeSpent" value="50364000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -930,8 +932,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proc.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="609" column="0" lean-forward="true" selection-start-line="609" selection-start-column="0" selection-end-line="609" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
